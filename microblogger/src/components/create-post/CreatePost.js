@@ -8,15 +8,35 @@ class CreatePost extends Component {
       title: "",
       body: ""
     },
-    isUsernameValid: false,
+    isUserIdValid: false,
     isBodyValid: false,
     isFormValid: false
   };
 
-  validateCreatePostForm = () => {
-    if (this.state.post.username.length > 0) {
-      this.setState({ isUsernameValid: true });
+  submitPost = () => {
+    console.log(this.state);
+
+    if (this.state.isFormValid) {
+      fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: JSON.stringify(this.state.post)
+      })
+        .then(res => {
+          this.props.history.push("/feed");
+        })
+        .catch(err => {
+          console.log("err", err);
+        });
     }
+  };
+
+  validateCreatePostForm = () => {
+    const isUserIdValid = this.state.post.userId.length > 0;
+    this.setState({ isUserIdValid });
+
+    const isBodyValid =
+      this.state.post.body.length >= 10 && this.state.post.body.length <= 140;
+    this.setState({ isBodyValid });
 
     if (
       10 <= this.state.post.body.length &&
@@ -24,26 +44,15 @@ class CreatePost extends Component {
     ) {
       this.setState({ isBodyValid: true });
     }
-    const formValid = this.state.isUsernameValid && this.state.isBodyValid;
-    this.setState({ isFormValid: formValid });
+    const isFormValid = this.state.isUserIdValid && this.state.isBodyValid;
+    this.setState({ isFormValid }, () => {
+      this.submitPost();
+    });
   };
 
   addPost = post => {
     this.setState({ post }, () => {
-      console.log(this.state);
-
-      if (this.state.isFormValid) {
-        fetch("https://jsonplaceholder.typicode.com/posts", {
-          method: "POST",
-          body: JSON.stringify(post)
-        })
-          .then(res => {
-            this.props.history.push("/feed");
-          })
-          .catch(err => {
-            console.log("err", err);
-          });
-      }
+      this.validateCreatePostForm();
     });
   };
 
