@@ -18,6 +18,10 @@ class PostFeed extends Component {
       });
   }
 
+  goToPostPage = () => {
+    this.props.history.push("/post");
+  };
+
   render() {
     return (
       <div className="container-fluid mt-4">
@@ -26,13 +30,18 @@ class PostFeed extends Component {
           <div className="col-md-8">
             <div className="card">
               <div className="card-body header-container">
+                <button
+                  className="btn btn-primary btn-sm float-right"
+                  onClick={this.goToPostPage}>
+                  Post
+                </button>
                 <Header />
               </div>
             </div>
             <div className="card feed-container mt-3">
               <div className="card-body">
                 {this.state.posts.map(post => (
-                  <Post post={post} />
+                  <Post post={post} key={post.id} />
                 ))}
               </div>
             </div>

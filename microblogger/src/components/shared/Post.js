@@ -6,7 +6,7 @@ class Post extends Component {
       <div className="post">
         <div className="card mb-3">
           <div className="card-body">
-            <h3>{this.props.post.title}</h3>
+            <h3>{`user${this.props.post.userId}`}</h3>
             <p>{this.props.post.body}</p>
           </div>
         </div>
