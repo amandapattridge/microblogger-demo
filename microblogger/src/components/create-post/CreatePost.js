@@ -7,22 +7,43 @@ class CreatePost extends Component {
       userId: "",
       title: "",
       body: ""
+    },
+    isUsernameValid: false,
+    isBodyValid: false,
+    isFormValid: false
+  };
+
+  validateCreatePostForm = () => {
+    if (this.state.post.username.length > 0) {
+      this.setState({ isUsernameValid: true });
     }
+
+    if (
+      10 <= this.state.post.body.length &&
+      this.state.post.body.length <= 140
+    ) {
+      this.setState({ isBodyValid: true });
+    }
+    const formValid = this.state.isUsernameValid && this.state.isBodyValid;
+    this.setState({ isFormValid: formValid });
   };
 
   addPost = post => {
     this.setState({ post }, () => {
       console.log(this.state);
-      fetch("https://jsonplaceholder.typicode.com/posts", {
-        method: "POST",
-        body: JSON.stringify(post)
-      })
-        .then(res => {
-          this.props.history.push("/feed");
+
+      if (this.state.isFormValid) {
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          body: JSON.stringify(post)
         })
-        .catch(err => {
-          console.log("err", err);
-        });
+          .then(res => {
+            this.props.history.push("/feed");
+          })
+          .catch(err => {
+            console.log("err", err);
+          });
+      }
     });
   };
 
