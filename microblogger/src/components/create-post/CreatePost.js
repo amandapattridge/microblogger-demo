@@ -22,6 +22,7 @@ class CreatePost extends Component {
         body: JSON.stringify(this.state.post)
       })
         .then(res => {
+          console.log(res);
           this.props.history.push("/feed");
         })
         .catch(err => {
@@ -32,20 +33,12 @@ class CreatePost extends Component {
 
   validateCreatePostForm = () => {
     const isUserIdValid = this.state.post.userId.length > 0;
-    this.setState({ isUserIdValid });
 
     const isBodyValid =
       this.state.post.body.length >= 10 && this.state.post.body.length <= 140;
-    this.setState({ isBodyValid });
 
-    if (
-      10 <= this.state.post.body.length &&
-      this.state.post.body.length <= 140
-    ) {
-      this.setState({ isBodyValid: true });
-    }
-    const isFormValid = this.state.isUserIdValid && this.state.isBodyValid;
-    this.setState({ isFormValid }, () => {
+    const isFormValid = isUserIdValid && isBodyValid;
+    this.setState({ isUserIdValid, isFormValid, isBodyValid }, () => {
       this.submitPost();
     });
   };

@@ -5,7 +5,7 @@ class Header extends Component {
     return (
       <header className="header">
         <h1 className="align-middle" id="page-header">
-          Microblogger
+          {this.props.title}
         </h1>
       </header>
     );

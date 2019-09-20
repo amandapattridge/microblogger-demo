@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../shared/Header";
-import Post from "./../shared/Post";
+import Post from "../shared/Post";
+import Button from "../shared/Button";
 
 class PostFeed extends Component {
   state = {
@@ -30,12 +31,17 @@ class PostFeed extends Component {
           <div className="col-md-8">
             <div className="card">
               <div className="card-body header-container">
-                <button
+                <Button
+                  title="Post!"
+                  clickFn={this.goToPostPage}
+                  styleName="btn-primary btn-sm float-right"
+                />
+                {/* <button
                   className="btn btn-primary btn-sm float-right"
                   onClick={this.goToPostPage}>
                   Post
-                </button>
-                <Header />
+                </button> */}
+                <Header title="Microblogger" />
               </div>
             </div>
             <div className="card feed-container mt-3">

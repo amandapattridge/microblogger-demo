@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Button from "./Button";
 
 class CreatePostForm extends Component {
   username = React.createRef();
@@ -40,10 +41,16 @@ class CreatePostForm extends Component {
                 />
               </div>
               <div className="form-gorup float-right">
-                <button className="btn btn-secondary mr-1">Cancel</button>
-                <button type="submit" className="btn btn-primary">
+                <Button
+                  title="Cancel"
+                  styleType="btn-secondary mr-1"
+                  type="submit"
+                />
+                <Button title="Submit" styleName="btn-primary" />
+                {/* <button className="btn btn-secondary mr-1">Cancel</button>
+                <button type="submit" className="btn btn-primary"> 
                   Submit
-                </button>
+                </button>*/}
               </div>
             </form>
           </div>
