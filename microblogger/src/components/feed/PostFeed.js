@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Header from "../shared/Header";
-import Post from "../shared/Post";
-import Button from "../shared/Button";
+import { Header } from "../shared/Header";
+import { Post } from "../shared/Post";
+import { Button } from "../shared/Button";
 
 class PostFeed extends Component {
   state = {
