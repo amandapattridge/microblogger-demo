@@ -32,15 +32,10 @@ class PostFeed extends Component {
             <div className="card">
               <div className="card-body header-container">
                 <Button
-                  title="Post!"
+                  title="Post"
                   clickFn={this.goToPostPage}
                   styleName="btn-primary btn-sm float-right"
                 />
-                {/* <button
-                  className="btn btn-primary btn-sm float-right"
-                  onClick={this.goToPostPage}>
-                  Post
-                </button> */}
                 <Header title="Microblogger" />
               </div>
             </div>

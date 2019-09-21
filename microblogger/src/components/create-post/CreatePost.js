@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CreatePostForm from "./../shared/CreatePostForm";
+import { Alert } from "./../shared/Alert";
 
 class CreatePost extends Component {
   state = {
@@ -8,25 +9,27 @@ class CreatePost extends Component {
       title: "",
       body: ""
     },
-    isUserIdValid: false,
-    isBodyValid: false,
-    isFormValid: false
+    isUserIdValid: true,
+    isBodyValid: true,
+    isFormValid: true,
+    postSuccess: false,
+    postError: false
   };
 
-  submitPost = () => {
-    console.log(this.state);
+  successMessage = "Your post was created successfully!";
+  errorMessage = "There was an error creating your post";
 
+  submitPost = () => {
     if (this.state.isFormValid) {
       fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         body: JSON.stringify(this.state.post)
       })
         .then(res => {
-          console.log(res);
-          this.props.history.push("/feed");
+          this.setState({ postSuccess: true, postError: false });
         })
         .catch(err => {
-          console.log("err", err);
+          this.setState({ postSuccess: false, postError: true });
         });
     }
   };
@@ -43,7 +46,7 @@ class CreatePost extends Component {
     });
   };
 
-  addPost = post => {
+  addPost = async post => {
     this.setState({ post }, () => {
       this.validateCreatePostForm();
     });
@@ -57,7 +60,23 @@ class CreatePost extends Component {
           <div className="col-md-8">
             <div className="card create-post-container">
               <div className="card-body">
-                <CreatePostForm addPost={this.addPost} />
+                {this.state.postSuccess && (
+                  <Alert
+                    alertMessage={this.successMessage}
+                    alertType="alert-success"
+                  />
+                )}
+                {this.state.postError && (
+                  <Alert
+                    alertMessage={this.errorMessage}
+                    alertType="alert-danger"
+                  />
+                )}
+                <CreatePostForm
+                  addPost={this.addPost}
+                  isBodyValid={this.state.isBodyValid}
+                  isUserIdValid={this.state.isUserIdValid}
+                />
               </div>
             </div>
           </div>

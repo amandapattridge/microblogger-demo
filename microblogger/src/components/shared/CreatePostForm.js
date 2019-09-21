@@ -31,6 +31,9 @@ class CreatePostForm extends Component {
                   aria-describedby="username"
                   ref={this.username}
                 />
+                {!this.props.isUserIdValid && (
+                  <p className="text-danger">Required</p>
+                )}
               </div>
               <div className="form-group">
                 <label htmlFor="content">Content</label>
@@ -39,14 +42,19 @@ class CreatePostForm extends Component {
                   id="content"
                   ref={this.content}
                 />
+                {!this.props.isBodyValid && (
+                  <p className="text-danger">
+                    Content must be between 10 and 140 characters
+                  </p>
+                )}
               </div>
               <div className="form-gorup float-right">
                 <Button
                   title="Cancel"
                   styleType="btn-secondary mr-1"
-                  type="submit"
+                  type="button"
                 />
-                <Button title="Submit" styleName="btn-primary" />
+                <Button title="Submit" styleName="btn-primary" type="submit" />
                 {/* <button className="btn btn-secondary mr-1">Cancel</button>
                 <button type="submit" className="btn btn-primary"> 
                   Submit
