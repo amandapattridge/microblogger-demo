@@ -19,6 +19,12 @@ class CreatePost extends Component {
   successMessage = "Your post was created successfully!";
   errorMessage = "There was an error creating your post";
 
+  updatePost = (name, value) => {
+    const post = { ...this.state.post };
+    post[name] = value;
+    this.setState({ post });
+  };
+
   submitPost = () => {
     if (this.state.isFormValid) {
       fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -34,7 +40,7 @@ class CreatePost extends Component {
     }
   };
 
-  validateCreatePostForm = () => {
+  validatePostForm = () => {
     const isUserIdValid = this.state.post.userId.length > 0;
 
     const isBodyValid =
@@ -43,12 +49,6 @@ class CreatePost extends Component {
     const isFormValid = isUserIdValid && isBodyValid;
     this.setState({ isUserIdValid, isFormValid, isBodyValid }, () => {
       this.submitPost();
-    });
-  };
-
-  addPost = async post => {
-    this.setState({ post }, () => {
-      this.validateCreatePostForm();
     });
   };
 
@@ -73,7 +73,9 @@ class CreatePost extends Component {
                   />
                 )}
                 <CreatePostForm
-                  addPost={this.addPost}
+                  updatePost={this.updatePost}
+                  validatePostForm={this.validatePostForm}
+                  post={this.state.post}
                   isBodyValid={this.state.isBodyValid}
                   isUserIdValid={this.state.isUserIdValid}
                 />

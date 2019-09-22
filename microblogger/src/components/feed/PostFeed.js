@@ -5,19 +5,24 @@ import { Button } from "../shared/Button";
 
 class PostFeed extends Component {
   state = {
-    posts: []
+    posts: [],
+    getPostsSuccess: true
   };
 
   componentDidMount() {
+    this.getPosts();
+  }
+
+  getPosts = () => {
     fetch("https://jsonplaceholder.typicode.com/posts", { method: "GET" })
       .then(res => res.json())
       .then(posts => {
-        this.setState({ posts });
+        this.setState({ posts, getPostsSuccess: true });
       })
       .catch(err => {
-        console.log(err);
+        this.setState({ getPostsSuccess: false });
       });
-  }
+  };
 
   goToPostPage = () => {
     this.props.history.push("/post");
