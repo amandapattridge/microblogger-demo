@@ -1,8 +1,23 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+
 import { Button } from "./Button";
 import { CharacterCountdown } from "./CharacterCoundown";
+import { PopUp } from "./PopUp";
 
 class CreatePostForm extends Component {
+  state = {
+    showPopUp: false
+  };
+
+  togglePopUp = () => {
+    this.setState({ showPopUp: !this.state.showPopUp });
+  };
+
+  goToFeed = () => {
+    this.props.history.push("/feed");
+  };
+
   updatePost = e => {
     e.preventDefault();
     this.props.updatePost(e.target.name, e.target.value);
@@ -18,7 +33,10 @@ class CreatePostForm extends Component {
       <div className="post">
         <div className="card mb-3">
           <div className="card-body">
-            <form className="create-post-form" onSubmit={this.validatePostForm}>
+            <form
+              className="create-post-form"
+              autoComplete="off"
+              onSubmit={this.validatePostForm}>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input
@@ -40,6 +58,7 @@ class CreatePostForm extends Component {
                   className="form-control"
                   id="content"
                   name="body"
+                  rows="3"
                   aria-describedby="content"
                   value={this.props.post.body}
                   onChange={this.updatePost}
@@ -65,15 +84,26 @@ class CreatePostForm extends Component {
                   title="Cancel"
                   styleName="btn-light mr-1"
                   type="button"
+                  clickFn={this.togglePopUp}
                 />
                 <Button title="Submit" styleName="btn-primary" type="submit" />
               </div>
             </form>
           </div>
         </div>
+        {this.state.showPopUp && (
+          <PopUp
+            title="Are you sure you want to leave?"
+            message="Your changes will not be saved"
+            cancelButtonTitle="No"
+            confirmButtonTitle="Yes"
+            handleCancel={this.togglePopUp}
+            handleConfirm={this.goToFeed}
+          />
+        )}
       </div>
     );
   }
 }
 
-export default CreatePostForm;
+export default withRouter(CreatePostForm);

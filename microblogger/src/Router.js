@@ -11,7 +11,7 @@ export default class Router extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/post" component={CreatePost} />
-          <Route exact path="/feed" component={PostFeed} />
+          <Route exact path="/" component={PostFeed} />
         </Switch>
       </BrowserRouter>
     );
