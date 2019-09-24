@@ -32,6 +32,7 @@ class CreatePost extends Component {
         body: JSON.stringify(this.state.post)
       })
         .then(res => {
+          console.log(res);
           this.setState({ postSuccess: true, postError: false });
         })
         .catch(err => {
@@ -41,14 +42,17 @@ class CreatePost extends Component {
   };
 
   validatePostForm = () => {
-    const isUserIdValid = this.state.post.userId.length > 0;
+    //remove any success/error messages displayed on previous submission attempts
+    this.setState({ postSuccess: false, postError: false }, () => {
+      const isUserIdValid = this.state.post.userId.length > 0;
 
-    const isBodyValid =
-      this.state.post.body.length >= 10 && this.state.post.body.length <= 140;
+      const isBodyValid =
+        this.state.post.body.length >= 10 && this.state.post.body.length <= 140;
 
-    const isFormValid = isUserIdValid && isBodyValid;
-    this.setState({ isUserIdValid, isFormValid, isBodyValid }, () => {
-      this.submitPost();
+      const isFormValid = isUserIdValid && isBodyValid;
+      this.setState({ isUserIdValid, isFormValid, isBodyValid }, () => {
+        this.submitPost();
+      });
     });
   };
 

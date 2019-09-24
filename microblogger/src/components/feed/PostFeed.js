@@ -14,7 +14,7 @@ class PostFeed extends Component {
   }
 
   getPosts = () => {
-    fetch("https://jsonplaceholder.typicode.com/posts", { method: "GET" })
+    fetch("https://jsonplaceholder.typicode.com/posts")
       .then(res => res.json())
       .then(posts => {
         this.setState({ posts, getPostsSuccess: true });
