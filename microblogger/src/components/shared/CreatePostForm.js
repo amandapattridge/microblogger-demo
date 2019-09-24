@@ -10,12 +10,24 @@ class CreatePostForm extends Component {
     showPopUp: false
   };
 
-  togglePopUp = () => {
-    this.setState({ showPopUp: !this.state.showPopUp });
+  cancelPost = () => {
+    if (this.props.post.body || this.props.post.userId) {
+      this.showPopUp();
+    } else {
+      this.goToFeed();
+    }
+  };
+
+  showPopUp = () => {
+    this.setState({ showPopUp: true });
+  };
+
+  hidePopUp = () => {
+    this.setState({ showPopUp: false });
   };
 
   goToFeed = () => {
-    this.props.history.push("/feed");
+    this.props.history.push("/");
   };
 
   updatePost = e => {
@@ -84,23 +96,22 @@ class CreatePostForm extends Component {
                   title="Cancel"
                   styleName="btn-light mr-1"
                   type="button"
-                  clickFn={this.togglePopUp}
+                  clickFn={this.cancelPost}
                 />
                 <Button title="Submit" styleName="btn-primary" type="submit" />
               </div>
             </form>
           </div>
         </div>
-        {this.state.showPopUp && (
-          <PopUp
-            title="Are you sure you want to leave?"
-            message="Your changes will not be saved"
-            cancelButtonTitle="No"
-            confirmButtonTitle="Yes"
-            handleCancel={this.togglePopUp}
-            handleConfirm={this.goToFeed}
-          />
-        )}
+        <PopUp
+          title="Are you sure you want to leave?"
+          message="Your changes will not be saved"
+          cancelButtonTitle="No"
+          confirmButtonTitle="Yes"
+          handleCancel={this.hidePopUp}
+          handleConfirm={this.goToFeed}
+          showPopUp={this.state.showPopUp}
+        />
       </div>
     );
   }

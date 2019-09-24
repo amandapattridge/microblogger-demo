@@ -13,13 +13,16 @@ code {
     monospace;
 }
 
-.header {
-  height: 100px;
+.button-container {
+  float: right;
 }
 
-.header #page-header {
-  display: inline-block;
-  width: 100%;
-  margin-bottom: 25px 0px;
+.button-container button {
+  position: relative;
+  margin-left: -47px;
+}
+
+/* CreatePost styling */
+.create-form-header {
   text-align: center;
 }

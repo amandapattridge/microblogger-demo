@@ -1,0 +1,22 @@
+/* PopUp Styling */
+
+.modal-contianer {
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-contianer.show {
+  opacity: 1;
+  visibility: visible;
+}
