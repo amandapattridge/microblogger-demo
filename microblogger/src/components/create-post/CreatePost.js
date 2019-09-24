@@ -1,24 +1,29 @@
 import React, { Component } from "react";
+
 import CreatePostForm from "./../shared/CreatePostForm";
-import { Alert } from "./../shared/Alert";
-import { Header } from "./../shared/Header";
+import Alert from "./../shared/Alert";
+import Header from "./../shared/Header";
 
 class CreatePost extends Component {
-  state = {
-    post: {
-      userId: "",
-      title: "",
-      body: ""
-    },
-    isUserIdValid: true,
-    isBodyValid: true,
-    isFormValid: true,
-    postSuccess: false,
-    postError: false
-  };
+  constructor(props) {
+    super(props);
 
-  successMessage = "Your post was created successfully!";
-  errorMessage = "There was an error creating your post";
+    this.state = {
+      post: {
+        userId: "",
+        title: "",
+        body: ""
+      },
+      isUserIdValid: true,
+      isBodyValid: true,
+      isFormValid: true,
+      postSuccess: false,
+      postError: false
+    };
+
+    this.successMessage = "Your post was created successfully!";
+    this.errorMessage = "There was an error creating your post";
+  }
 
   updatePost = (name, value) => {
     const post = { ...this.state.post };
@@ -34,7 +39,6 @@ class CreatePost extends Component {
         body: JSON.stringify(this.state.post)
       })
         .then(res => {
-          console.log(res);
           this.setState({ postSuccess: true, postError: false });
         })
         .catch(err => {

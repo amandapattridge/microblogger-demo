@@ -2,8 +2,8 @@ import React from "react";
 import { shallow } from "enzyme";
 import CreatePost from "./../components/create-post/CreatePost";
 
-describe("PostFeed", () => {
-  it("posts a list of posts", done => {
+describe("Create Post", () => {
+  it("submits a post", done => {
     const mockPost = {
       userId: "1",
       title: "",

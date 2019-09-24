@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 
-import { Button } from "./Button";
-import { CharacterCountdown } from "./CharacterCoundown";
-import { PopUp } from "./PopUp";
+import Button from "./Button";
+import CharacterCountdown from "./CharacterCoundown";
+import PopUp from "./PopUp";
 
 class CreatePostForm extends Component {
-  state = {
-    showPopUp: false
+  static propTypes = {
+    post: PropTypes.shape({
+      userId: PropTypes.string,
+      body: PropTypes.string,
+      title: PropTypes.string
+    }),
+    updatePost: PropTypes.func,
+    validatePostForm: PropTypes.func
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showPopUp: false
+    };
+  }
 
   cancelPost = () => {
     if (this.props.post.body || this.props.post.userId) {
@@ -94,11 +109,17 @@ class CreatePostForm extends Component {
               <div className="form-gorup float-right">
                 <Button
                   title="Cancel"
+                  id="cancel"
                   styleName="btn-light mr-1"
                   type="button"
                   clickFn={this.cancelPost}
                 />
-                <Button title="Submit" styleName="btn-primary" type="submit" />
+                <Button
+                  title="Submit"
+                  id="post"
+                  styleName="btn-primary"
+                  type="submit"
+                />
               </div>
             </form>
           </div>

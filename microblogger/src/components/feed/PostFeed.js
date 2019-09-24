@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import { Header } from "../shared/Header";
-import { Post } from "../shared/Post";
-import { Button } from "../shared/Button";
-import { Alert } from "../shared/Alert";
+
+import Header from "../shared/Header";
+import Post from "../shared/Post";
+import Button from "../shared/Button";
+import Alert from "../shared/Alert";
 
 class PostFeed extends Component {
-  state = {
-    posts: [],
-    getPostsSuccess: true
-  };
+  constructor(props) {
+    super(props);
 
-  errorMessage = "There was an error retrieving your post feed";
+    this.state = {
+      posts: [],
+      getPostsSuccess: true
+    };
+
+    this.errorMessage = "There was an error retrieving your post feed";
+  }
 
   componentDidMount() {
     this.getPosts();
@@ -41,6 +46,7 @@ class PostFeed extends Component {
               <div className="card-body header-container">
                 <div className="button-container">
                   <Button
+                    type="button"
                     title="Post"
                     clickFn={this.goToPostPage}
                     styleName="btn-primary btn-sm"

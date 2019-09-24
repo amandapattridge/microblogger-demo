@@ -1,10 +1,17 @@
 import React from "react";
 import "./Header.css";
+import PropTypes from "prop-types";
 
-export const Header = props => (
+const Header = ({ title }) => (
   <header className="header">
     <h1 className="align-middle" id="page-header">
-      {props.title}
+      {title}
     </h1>
   </header>
 );
+
+Header.propTypes = {
+  title: PropTypes.string.isRequired
+};
+
+export default Header;

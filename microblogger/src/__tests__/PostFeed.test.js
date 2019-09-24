@@ -1,5 +1,5 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import PostFeed from "./../components/feed/PostFeed";
 
 describe("PostFeed", () => {
@@ -35,5 +35,14 @@ describe("PostFeed", () => {
       global.fetch.mockClear();
       done();
     });
+  });
+
+  it("Displays an h1 with the title 'Microblogger'", done => {
+    const wrapper = mount(<PostFeed />);
+    const header = wrapper.find("h1");
+
+    expect(header.text()).toEqual("Microblogger");
+
+    done();
   });
 });

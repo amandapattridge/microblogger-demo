@@ -1,10 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export const CharacterCountdown = props => (
+const CharacterCountdown = ({ currentLength, maxLength }) => (
   <p
     className={`character-countdown text-right ${
-      props.currentLength > props.maxLength ? "text-danger" : ""
+      currentLength > maxLength ? "text-danger" : ""
     }`}>
-    {props.maxLength - props.currentLength}
+    {maxLength - currentLength}
   </p>
 );
+
+CharacterCountdown.propTypes = {
+  currentLength: PropTypes.number.isRequired,
+  maxLength: PropTypes.number.isRequired
+};
+
+export default CharacterCountdown;
